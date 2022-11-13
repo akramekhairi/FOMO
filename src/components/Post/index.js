@@ -1,12 +1,15 @@
-import React from 'react'
-import {View,Text, Image, ImageBackground} from 'react-native'
+import React, {useState} from 'react'
+import {View,Text, Image, ImageBackground, TouchableOpacity} from 'react-native'
 import styles from './styles'
 import { AntDesign } from '@expo/vector-icons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 const Post = (props) => {
-
+    const [isLiked, setIsLiked] = useState();
     const {post} = props;
+    const onLikePress = () => {
+        setIsLiked(!isLiked)
+    }
     return (
         <View style = {styles.container}>
             <Image source = {{uri: post.image}}
@@ -18,8 +21,8 @@ const Post = (props) => {
                 <View style = {styles.rightbuttoncontainer}>
                         <Image style = {styles.profilepic} source = {{uri:post.profilepic}}
                         />
-
-                        <AntDesign name = {'heart'} size = {40} color="white"/>
+                        <TouchableOpacity onPress={onLikePress}><AntDesign name = {'like2'} size = {40} color={isLiked ? "blue":"white"}/></TouchableOpacity>   
+                        
                         <AntDesign name = {'trademark'} size = {40} color="white"/>
                         <FontAwesome name = {'share-square-o'} size = {40} color="white"/>
                 </View>
